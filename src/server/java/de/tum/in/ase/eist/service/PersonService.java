@@ -5,6 +5,7 @@ import de.tum.in.ase.eist.util.PersonSortingOptions;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.function.Predicate;
 
 @Service
 public class PersonService {
@@ -37,7 +38,8 @@ public class PersonService {
     public List<Person> getAllPersons(PersonSortingOptions sortingOptions) {
         // TODO Part 3: Add sorting here
         List<Person> list = new ArrayList<>();
-        persons.stream().filter(person -> sortingOptions.getSortField().name().equals(person.getFirstName())).forEach(list::add);
+        persons.stream().filter((Predicate<? super Person>) sortingOptions).forEach(list::add);
+//        persons.stream().filter(person -> sortingOptions.getSortField().name().equals(person.getFirstName())).forEach(list::add);
 //        return new ArrayList<>(this.persons);
         return list;
     }
