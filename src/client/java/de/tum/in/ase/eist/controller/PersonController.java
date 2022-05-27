@@ -42,7 +42,7 @@ public class PersonController {
 
     public void updatePerson(Person person, Consumer<List<Person>> personsConsumer) {
         // TODO Part 2: Make an http put request to the server
-        webClient.post()
+        webClient.put()
                 .uri("persons/" + person.getId())
                 .bodyValue(person)
                 .retrieve()
