@@ -44,7 +44,7 @@ public class PersonResource {
     }
 
     @GetMapping("persons")
-    public ResponseEntity<List<Person>> getAllPersons(@RequestParam("secret") String secret, PersonSortingOptions sortingOptions) {
+    public ResponseEntity<List<Person>> getAllPersons(PersonSortingOptions sortingOptions, @RequestParam("secret") String secret) {
         if (!"SecretKey".equals(secret)) {
             return ResponseEntity.badRequest().build();
         }
