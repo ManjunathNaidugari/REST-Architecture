@@ -45,11 +45,16 @@ public class PersonResource {
     }
 
     @GetMapping("persons")
-    public ResponseEntity<List<Person>> getAllPersons(PersonSortingOptions sortingOptions, @RequestParam("secret") String secret) {
-        if (!"SecretKey".equals(secret)) {
-            return ResponseEntity.badRequest().build();
-        }
+    public ResponseEntity<List<Person>> getAllPersons(
+            @RequestParam(required = false)PersonSortingOptions.SortField sortField,
+            @RequestParam(required = false) PersonSortingOptions.SortingOrder sortingOrder) {
 //        PersonSortingOptions sortingOptions = new PersonSortingOptions();
-        return ResponseEntity.ok(personService.getAllPersons(sortingOptions));
+        if(sortField == null && sortingOrder== null) {
+            return ResponseEntity.ok(personService.getAllPersons(new PersonSortingOptions()));
+        }
+        if(sortingOrder == null) {
+            return ResponseEntity.ok(personService.getAllPersons(new PersonSortingOptions(sortField)));
+        }
+        return ResponseEntity.ok(personService.getAllPersons(new PersonSortingOptions(sortingOrder, sortField)));
     }
 }
