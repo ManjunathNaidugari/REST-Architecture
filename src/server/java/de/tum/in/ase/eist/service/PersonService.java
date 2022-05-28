@@ -5,11 +5,10 @@ import de.tum.in.ase.eist.util.PersonSortingOptions;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.function.Predicate;
 
 @Service
 public class PersonService {
-  	// do not change this
+    // do not change this
     private final List<Person> persons;
 
     public PersonService() {
@@ -37,29 +36,26 @@ public class PersonService {
 
     public List<Person> getAllPersons(PersonSortingOptions sortingOptions) {
         // TODO Part 3: Add sorting here
-        Collections.sort(persons, new Comparator<Person>() {
-            @Override
-            public int compare(Person o1, Person o2) {
-                if (sortingOptions.getSortingOrder() == PersonSortingOptions.SortingOrder.ASCENDING) {
-                   if (sortingOptions.getSortField() == PersonSortingOptions.SortField.ID) {
-                       return o1.getId().compareTo(o2.getId());
-                   } else if (sortingOptions.getSortField() == PersonSortingOptions.SortField.BIRTHDAY) {
-                       return o1.getBirthday().compareTo(o2.getBirthday());
-                   } else if (sortingOptions.getSortField() == PersonSortingOptions.SortField.FIRST_NAME) {
-                       return o1.getFirstName().compareTo(o2.getFirstName());
-                   } else {
-                       return o1.getLastName().compareTo(o2.getLastName());
-                   }
+        persons.sort((o1, o2) -> {
+            if (sortingOptions.getSortingOrder() == PersonSortingOptions.SortingOrder.ASCENDING) {
+                if (sortingOptions.getSortField() == PersonSortingOptions.SortField.ID) {
+                    return o1.getId().compareTo(o2.getId());
+                } else if (sortingOptions.getSortField() == PersonSortingOptions.SortField.BIRTHDAY) {
+                    return o1.getBirthday().compareTo(o2.getBirthday());
+                } else if (sortingOptions.getSortField() == PersonSortingOptions.SortField.FIRST_NAME) {
+                    return o1.getFirstName().compareTo(o2.getFirstName());
                 } else {
-                    if (sortingOptions.getSortField() == PersonSortingOptions.SortField.ID) {
-                        return o2.getId().compareTo(o1.getId());
-                    } else if (sortingOptions.getSortField() == PersonSortingOptions.SortField.BIRTHDAY) {
-                        return o2.getBirthday().compareTo(o1.getBirthday());
-                    } else if (sortingOptions.getSortField() == PersonSortingOptions.SortField.FIRST_NAME) {
-                        return o2.getFirstName().compareTo(o1.getFirstName());
-                    } else {
-                        return o2.getLastName().compareTo(o1.getLastName());
-                    }
+                    return o1.getLastName().compareTo(o2.getLastName());
+                }
+            } else {
+                if (sortingOptions.getSortField() == PersonSortingOptions.SortField.ID) {
+                    return o2.getId().compareTo(o1.getId());
+                } else if (sortingOptions.getSortField() == PersonSortingOptions.SortField.BIRTHDAY) {
+                    return o2.getBirthday().compareTo(o1.getBirthday());
+                } else if (sortingOptions.getSortField() == PersonSortingOptions.SortField.FIRST_NAME) {
+                    return o2.getFirstName().compareTo(o1.getFirstName());
+                } else {
+                    return o2.getLastName().compareTo(o1.getLastName());
                 }
             }
         });
