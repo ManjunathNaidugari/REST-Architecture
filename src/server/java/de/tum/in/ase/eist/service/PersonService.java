@@ -38,7 +38,7 @@ public class PersonService {
     public List<Person> getAllPersons(PersonSortingOptions sortingOptions) {
         // TODO Part 3: Add sorting here
         List<Person> list = new ArrayList<>();
-        persons.stream().sorted(Comparator.comparing(person -> person.toString().equals(sortingOptions.getSortField().name()))).forEach(list::add);
+        persons.stream().filter(person -> person.toString().equals(sortingOptions.getSortField().name())).forEach(list::add);
 //        persons.stream().filter(person -> person.getId().equals(sortingOptions.getSortField().)).forEach(list::add);
 //        persons.stream().filter(person -> sortingOptions.getSortField().name().equals(person.getFirstName())).forEach(list::add);
 //        return new ArrayList<>(this.persons);
